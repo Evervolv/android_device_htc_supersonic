@@ -15,7 +15,7 @@
 #
 
 #
-# This is the product configuration for a generic GSM passion,
+# This is the product configuration for a generic supersonic,
 # not specialized for any geography.
 #
 
@@ -25,15 +25,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/gps.conf:system/etc/gps.conf
 
-## (1) First, the most specific values, i.e. the aspects that are specific to GSM
+
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc
 
-## (2) Also get non-open-source GSM-specific aspects if available
+
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
 
-## (3)  Finally, the least specific parts, i.e. the non-GSM-specific aspects
+
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.google.clientidbase=android-sprint-us \
 	ro.com.google.locationfeatures=1 \
