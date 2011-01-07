@@ -113,7 +113,7 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/modules/nfs.ko:system/lib/modules/nfs.ko \
     device/htc/supersonic/modules/nfs_acl.ko:system/lib/modules/nfs_acl.ko \
     device/htc/supersonic/modules/nfsd.ko:system/lib/modules/nfsd.ko \
-    device/htc/supersonic/modules/rpcsec_fss_krb5.ko:system/lib/modules/rpcsec_fss_krb5.ko \
+    device/htc/supersonic/modules/rpcsec_gss_krb5.ko:system/lib/modules/rpcsec_gss_krb5.ko \
     device/htc/supersonic/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
     device/htc/supersonic/modules/sit.ko:system/lib/modules/sit.ko \
     device/htc/supersonic/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
