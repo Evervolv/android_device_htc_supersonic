@@ -96,7 +96,32 @@ PRODUCT_COPY_FILES += \
 
 # Kernel modules
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/bcm4329.ko:system/lib/modules/bcm4329.ko
+    device/htc/supersonic/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/supersonic/modules/ah6.ko:system/lib/modules/ah6.ko \
+    device/htc/supersonic/modules/auth_rpcgss.ko:system/lib/modules/auth_rpcgss.ko \
+    device/htc/supersonic/modules/backlight.ko:system/lib/modules/backlight.ko \
+    device/htc/supersonic/modules/cifs.ko:system/lib/modules/cifs.ko \
+    device/htc/supersonic/modules/esp6.ko:system/lib/modules/esp6.ko \
+    device/htc/supersonic/modules/exportfs.ko:system/lib/modules/exportfs.ko \
+    device/htc/supersonic/modules/fuse.ko:system/lib/modules/fuse.ko \
+    device/htc/supersonic/modules/generic_bl.ko:system/lib/modules/generic_bl.ko \
+    device/htc/supersonic/modules/ip6_tunnel.ko:system/lib/modules/ip6_tunnel.ko \
+    device/htc/supersonic/modules/ipcomp6.ko:system/lib/modules/ipcomp6.ko \
+    device/htc/supersonic/modules/lcd.ko:system/lib/modules/lcd.ko \
+    device/htc/supersonic/modules/lockd.ko:system/lib/modules/lockd.ko \
+    device/htc/supersonic/modules/mip6.ko:system/lib/modules/mip6.ko \
+    device/htc/supersonic/modules/nfs.ko:system/lib/modules/nfs.ko \
+    device/htc/supersonic/modules/nfs_acl.ko:system/lib/modules/nfs_acl.ko \
+    device/htc/supersonic/modules/nfsd.ko:system/lib/modules/nfsd.ko \
+    device/htc/supersonic/modules/rpcsec_fss_krb5.ko:system/lib/modules/rpcsec_fss_krb5.ko \
+    device/htc/supersonic/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
+    device/htc/supersonic/modules/sit.ko:system/lib/modules/sit.ko \
+    device/htc/supersonic/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
+    device/htc/supersonic/modules/tunnel6.ko:system/lib/modules/tunnel6.ko \
+    device/htc/supersonic/modules/xfrm6_mode_beet.ko:system/lib/modules/xfrm6_mode_beet.ko \
+    device/htc/supersonic/modules/xfrm6_mode_transport.ko:system/lib/modules/xfrm6_mode_transport.ko \
+    device/htc/supersonic/modules/xfrm6_mode_tunnel.ko:system/lib/modules/xfrm6_mode_tunnel.ko \
+    device/htc/supersonic/modules/xfrm6_tunnel.ko:system/lib/modules/xfrm6_tunnel.ko \
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/supersonic/kernel
