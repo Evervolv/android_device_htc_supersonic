@@ -37,3 +37,4 @@ gsm.sim.operator.iso-country = 0
 
 #Modify MTU from 1500 to 1472 on 3G network
 ro.ril.set.mtu1472 = 1
+

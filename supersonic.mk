@@ -19,8 +19,6 @@
 # not specialized for any geography.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # The gps config appropriate for this device
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/gps.conf:system/etc/gps.conf
@@ -55,8 +53,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
+    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
 
 # media config xml file
 PRODUCT_COPY_FILES += \
@@ -68,9 +65,9 @@ PRODUCT_PACKAGES += \
     lights.supersonic \
     gralloc.qsd8k \
     copybit.qsd8k \
-    gps.supersonic 
-
-
+    gps.supersonic \
+    libOmxCore \
+    libOmxVidEnc
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -94,34 +91,34 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/vold.fstab:system/etc/vold.fstab \
     device/htc/supersonic/apns-conf.xml:system/etc/apns-conf.xml
 
-# Kernel modules
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/supersonic/modules/ah6.ko:system/lib/modules/ah6.ko \
-    device/htc/supersonic/modules/auth_rpcgss.ko:system/lib/modules/auth_rpcgss.ko \
-    device/htc/supersonic/modules/backlight.ko:system/lib/modules/backlight.ko \
-    device/htc/supersonic/modules/cifs.ko:system/lib/modules/cifs.ko \
-    device/htc/supersonic/modules/esp6.ko:system/lib/modules/esp6.ko \
-    device/htc/supersonic/modules/exportfs.ko:system/lib/modules/exportfs.ko \
-    device/htc/supersonic/modules/fuse.ko:system/lib/modules/fuse.ko \
-    device/htc/supersonic/modules/generic_bl.ko:system/lib/modules/generic_bl.ko \
-    device/htc/supersonic/modules/ip6_tunnel.ko:system/lib/modules/ip6_tunnel.ko \
-    device/htc/supersonic/modules/ipcomp6.ko:system/lib/modules/ipcomp6.ko \
-    device/htc/supersonic/modules/lcd.ko:system/lib/modules/lcd.ko \
-    device/htc/supersonic/modules/lockd.ko:system/lib/modules/lockd.ko \
-    device/htc/supersonic/modules/mip6.ko:system/lib/modules/mip6.ko \
-    device/htc/supersonic/modules/nfs.ko:system/lib/modules/nfs.ko \
-    device/htc/supersonic/modules/nfs_acl.ko:system/lib/modules/nfs_acl.ko \
-    device/htc/supersonic/modules/nfsd.ko:system/lib/modules/nfsd.ko \
-    device/htc/supersonic/modules/rpcsec_gss_krb5.ko:system/lib/modules/rpcsec_gss_krb5.ko \
-    device/htc/supersonic/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
-    device/htc/supersonic/modules/sit.ko:system/lib/modules/sit.ko \
-    device/htc/supersonic/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
-    device/htc/supersonic/modules/tunnel6.ko:system/lib/modules/tunnel6.ko \
-    device/htc/supersonic/modules/xfrm6_mode_beet.ko:system/lib/modules/xfrm6_mode_beet.ko \
-    device/htc/supersonic/modules/xfrm6_mode_transport.ko:system/lib/modules/xfrm6_mode_transport.ko \
-    device/htc/supersonic/modules/xfrm6_mode_tunnel.ko:system/lib/modules/xfrm6_mode_tunnel.ko \
-    device/htc/supersonic/modules/xfrm6_tunnel.ko:system/lib/modules/xfrm6_tunnel.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/drivers/net/wireless/bcm4329/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/drivers/net/wimax/SQN/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/jbd2/jbd2.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/jbd2/jbd2.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/exportfs/exportfs.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/exportfs/exportfs.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/cifs/cifs.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/cifs/cifs.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/nfs_common/nfs_acl.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/nfs_common/nfs_acl.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/lockd/lockd.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/lockd/lockd.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/ext4/ext4.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/ext4/ext4.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/nfsd/nfsd.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/nfsd/nfsd.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/mbcache.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/mbcache.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/fs/nfs/nfs.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/fs/nfs/nfs.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ipv6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ipv6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ah6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ah6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_tunnel.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_tunnel.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_transport.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_transport.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ip6_tunnel.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ip6_tunnel.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_tunnel.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_tunnel.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/esp6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/esp6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/sit.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/sit.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ipcomp6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/ipcomp6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_beet.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/xfrm6_mode_beet.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/mip6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/mip6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/tunnel6.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/ipv6/tunnel6.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/sunrpc.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/sunrpc.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/auth_gss/auth_rpcgss.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/auth_gss/auth_rpcgss.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko:system/lib/modules/2.6.35.10-cyanogenmod/kernel/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko \
+    device/htc/supersonic/modules/2.6.35.10-cyanogenmod/modules.dep:system/lib/modules/2.6.35.10-cyanogenmod/modules.dep
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/htc/supersonic/kernel
@@ -140,8 +137,8 @@ $(call inherit-product, device/htc/supersonic/media_a1026.mk)
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
-$(call inherit-product, build/target/product/full.mk)
+$(call inherit-product, build/target/product/full_base.mk)
 
 
-PRODUCT_NAME := generic_supersonic
+PRODUCT_NAME := htc_supersonic
 PRODUCT_DEVICE := supersonic
