@@ -55,6 +55,10 @@ adb pull /system/bin/wimaxDhcpRelease ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/bin/wimaxAddRoute ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/etc/wimax/sequansd/DefaultTree.xml ../../../vendor/htc/$DEVICE/proprietary
 adb pull /system/etc/wimax/sequansd/sequansd_app.xml ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/etc/wimax/dhcp/wimaxDhcp.conf ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/ipd ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/bin/ip ../../../vendor/htc/$DEVICE/proprietary
+adb pull /system/framework/wimax-api.jar ../../../vendor/htc/$DEVICE/proprietary
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g > ../../../vendor/htc/$DEVICE/$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -115,7 +119,11 @@ PRODUCT_COPY_FILES += \\
     vendor/htc/__DEVICE__/proprietary/wimaxDhcpRelease:/system/bin/wimaxDhcpRelease \\
     vendor/htc/__DEVICE__/proprietary/wimaxAddRoute:/system/bin/wimaxAddRoute \\
     vendor/htc/__DEVICE__/proprietary/DefaultTree.xml:/system/etc/wimax/sequansd/DefaultTree.xml \\
-    vendor/htc/__DEVICE__/proprietary/sequansd_app.xml:/system/etc/wimax/sequansd/sequansd_app.xml
+    vendor/htc/__DEVICE__/proprietary/wimaxDhcp.conf:/system/etc/wimax/dhcp/wimaxDhcp.conf \\
+    vendor/htc/__DEVICE__/proprietary/ipd:/system/bin/ipd \\
+    vendor/htc/__DEVICE__/proprietary/ip:/system/bin/ip \\
+    vendor/htc/__DEVICE__/proprietary/sequansd_app.xml:/system/etc/wimax/sequansd/sequansd_app.xml \\
+    vendor/htc/__DEVICE__/proprietary/wimax-api.jar:/system/framework/wimax-api.jar
 EOF
 
 ./setup-makefiles.sh

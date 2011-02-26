@@ -1,3 +1,6 @@
+on early-init
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar:/system/framework/wimax-api.jar
+
 on init
     mount rootfs rootfs / remount
     mkdir /app-cache 01777 system system
@@ -121,7 +124,37 @@ service sequansd /system/bin/sequansd /etc/wimax/sequansd/sequansd_app.xml
     disabled
     oneshot
 
+service wimaxDhcpRelease /system/bin/wimaxDhcpRelease
+    user root
+    group root
+    disabled
+    oneshot
+
 service wimaxDhcpRenew /system/bin/wimaxDhcpRenew
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxAddRoute /system/bin/wimaxAddRoute
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpLogcat /system/bin/wimaxDumpLogcat /data/wimax/log
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpKmsg /system/bin/wimaxDumpKmsg /data/wimax/log
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpLastKmsg /system/bin/wimaxDumpLastKmsg /data/wimax/log
     user root
     group root
     disabled

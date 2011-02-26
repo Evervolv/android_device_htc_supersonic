@@ -36,6 +36,7 @@ TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv7-a-neon
+ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_BOOTLOADER_BOARD_NAME := supersonic
 
@@ -64,6 +65,7 @@ BOARD_VENDOR_USE_AKMD := akm8973
 BOARD_EGL_CFG := device/htc/supersonic/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_GPS := true
 BOARD_USES_QCOM_LIBRPC := true
 
 BOARD_USE_OPENSSL_ENGINE := true
@@ -74,11 +76,10 @@ BOARD_USE_REVERSE_FFC := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := supersonic
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 1240
 
-# Use RGB565 surfaces until userspace drivers are upgraded
-BOARD_NO_RGBX_8888 := true
-
 BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+
+BOARD_HAVE_SQN_WIMAX := true
 
 # # cat /proc/mtd
 # dev:    size   erasesize  name
