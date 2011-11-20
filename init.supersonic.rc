@@ -1,0 +1,195 @@
+on init
+    mount rootfs rootfs / remount
+    mkdir /app-cache 01777 system system
+    mount tmpfs tmpfs /app-cache size=8m
+    mkdir /data/app-cache 0771 system system
+    mount rootfs rootfs / ro remount
+
+# Define the memory thresholds at which the above process classes will
+# be killed.  These numbers are in pages (4k).
+    setprop ro.FOREGROUND_APP_MEM 3584
+    setprop ro.VISIBLE_APP_MEM 4096
+    setprop ro.SECONDARY_SERVER_MEM 6144
+    setprop ro.BACKUP_APP_MEM 6144
+    setprop ro.HOME_APP_MEM 6144
+    setprop ro.HIDDEN_APP_MEM 7168
+    setprop ro.CONTENT_PROVIDER_MEM 7680
+    setprop ro.EMPTY_APP_MEM 8192
+
+on boot
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    mkdir /data/misc/hotspot 0770 system hotspot
+    mkdir /data/misc/wimax 0777 wimax wimax
+    mkdir /data/misc/wimax/sockets 0777  wimax wimax
+    mkdir /data/wimax/ 0777  wimax wimax
+    mkdir /data/wimax/log 0777  wimax wimax
+
+    # bluetooth power up/down interface
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown system system /sys/module/serial/parameters/modem_enabled
+    chown system system /dev/ttyHSUSB0
+    chown system system /dev/smd9
+    chown radio radio /sys/module/msm_flashlight/parameters/phone_status
+
+    # bluetooth MAC address programming
+    chown bluetooth bluetooth /sys/module/board_supersonic/parameters/bdaddr
+    setprop ro.bt.bdaddr_path /sys/module/board_supersonic/parameters/bdaddr
+
+    # LEDs
+    chown system system /sys/class/leds/lcd-backlight/brightness
+    chown system system /sys/class/leds/button-backlight/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/green/blink
+    chown system system /sys/class/leds/amber/brightness
+    chown system system /sys/class/leds/amber/blink
+    chown system system /sys/class/leds/wimax/brightness
+
+    # flashlight
+    chown system camera /sys/devices/platform/flashlight.0/leds/flashlight/brightness
+    chmod 0660          /sys/devices/platform/flashlight.0/leds/flashlight/brightness
+
+    # Camera status
+    chown radio system /sys/camera_led_status/led_ril_status
+    chown system system /sys/camera_led_status/led_wimax_status
+    chown system system /sys/camera_led_status/led_hotspot_status
+    chown media system /sys/android_camera/cam_mode
+
+    # For FM radio/music by Welly_Fang's request
+    mkdir /data/data/shared
+    chmod 0777 /data/data/shared
+
+    # Overwrite framework low memory killer minfree setting
+    write /sys/module/lowmemorykiller/parameters/minfree 3584,4096,6144,7168,7680,8192
+
+    # Enable low memory killer to check file pages
+    write /sys/module/lowmemorykiller/parameters/minfile 0,0,0,5120,5632,6144
+    write /sys/module/lowmemorykiller/parameters/check_filepages 1
+
+    # performance tweaks for flash
+    write /sys/block/mtdblock4/bdi/read_ahead_kb 4
+    write /sys/block/mtdblock5/bdi/read_ahead_kb 4
+    write /sys/block/mtdblock6/bdi/read_ahead_kb 4
+
+    # Power Management
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 998400
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 40000
+
+    # TCP buffer size tweaks to improve throughput
+    write /proc/sys/net/core/wmem_max 524288
+    write /proc/sys/net/core/rmem_max 524288
+
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
+    -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    socket wpa_eth0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL eth0
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    disabled
+    oneshot
+
+service dhcpWimax /system/bin/dhcpcd -ABKL -f /etc/wimax/dhcp/wimaxDhcp.conf wimax0
+    disabled
+    oneshot
+
+service modem /system/xbin/wireless_modem
+    user system
+    group system radio
+    disabled
+
+on property:service.modem.enable=1
+    start modem
+
+on property:service.modem.enable=0
+    stop modem
+
+# compass/accelerometer daemon
+service akmd /system/bin/akmd
+    user compass
+    group compass misc input
+
+service sequansd /system/bin/sequansd /etc/wimax/sequansd/sequansd_app.xml
+    user root
+    group root inet
+    socket sequansd_0 dgram 660 root root
+    disabled
+    oneshot
+
+service wimaxDhcpRelease /system/bin/wimaxDhcpRelease
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDhcpRenew /system/bin/wimaxDhcpRenew
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxAddRoute /system/bin/wimaxAddRoute
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpLogcat /system/bin/wimaxDumpLogcat /data/wimax/log
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpKmsg /system/bin/wimaxDumpKmsg /data/wimax/log
+    user root
+    group root
+    disabled
+    oneshot
+
+service wimaxDumpLastKmsg /system/bin/wimaxDumpLastKmsg /data/wimax/log
+    user root
+    group root
+    disabled
+    oneshot
+
+# wimax_mtd daemon
+service wimax_mtd /system/bin/wimax_mtd
+   user root
+   group root
+   oneshot
+
+# setWMXPropd daemon
+service setWMXPropd /system/bin/setWiMAXPropDaemond
+    user root
+    group root
+    oneshot
+
+# getWMXPropd daemon
+service getWMXPropd /system/bin/getWiMAXPropDaemond
+    user root
+    group root
+    oneshot
+
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
+    --baudrate 3000000 --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+
