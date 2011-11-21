@@ -54,7 +54,8 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
+    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 # media config xml file
 PRODUCT_COPY_FILES += \
@@ -65,7 +66,7 @@ PRODUCT_PACKAGES += \
     sensors.supersonic \
     lights.supersonic \
     gralloc.qsd8k \
-    #copybit.qsd8k \
+    copybit.qsd8k \
     gps.supersonic \
     libOmxCore \
     libOmxVidEnc \
