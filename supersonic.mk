@@ -26,7 +26,7 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc
+    device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc 
 
 
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
@@ -54,8 +54,7 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml
 
 # media config xml file
 PRODUCT_COPY_FILES += \
@@ -76,7 +75,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/supersonic-keypad.kl:system/usr/keylayout/supersonic-keypad.kl \
     device/htc/supersonic/supersonic-keypad.kcm.bin:system/usr/keychars/supersonic-keypad.kcm.bin \
-    device/htc/supersonic/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
+    device/htc/supersonic/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/supersonic/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc
 
 # Firmware
 PRODUCT_COPY_FILES += \
