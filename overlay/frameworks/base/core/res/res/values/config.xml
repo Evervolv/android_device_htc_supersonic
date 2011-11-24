@@ -179,8 +179,4 @@
     <!-- Enable use of power animations -->
     <bool name="config_animateScreenLights">false</bool>
 
-    <!-- Enable soft keys -->
-    <bool name="config_showNavigationBar">true</bool>
-
-
 </resources>
