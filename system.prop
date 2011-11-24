@@ -7,7 +7,7 @@ ro.ril.def.preferred.network = 4
 ro.telephony.default_network = 4
 net.tcp.buffersize.wimax = 4096,221184,524288,4096,16384,110208
 
-wifi.interface = wlan0
+wifi.interface = eth0
 wifi.supplicant_scan_interval=45
 ro.com.google.locationfeatures = 1
 # density in DPI of the LCD of this board. This is used to scale the UI
