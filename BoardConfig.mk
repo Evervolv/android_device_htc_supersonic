@@ -63,6 +63,9 @@ BOARD_VENDOR_QCOM_AMSS_VERSION := 3200
 
 BOARD_VENDOR_USE_AKMD := akm8973
 
+#Add ICS GPU Rendering to config 
+USE_OPENGL_RENDERER := true
+
 BOARD_EGL_CFG := device/htc/supersonic/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
