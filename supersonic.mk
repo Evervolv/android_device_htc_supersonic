@@ -70,7 +70,10 @@ PRODUCT_PACKAGES += \
     gps.supersonic \
     libOmxCore \
     libOmxVidEnc \
-    com.android.future.usb.accessory
+    com.android.future.usb.accessory \
+    audio.a2dp.default \
+    audio.primary.qsd8k \
+    audio_policy.qsd8k
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
