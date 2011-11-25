@@ -26,7 +26,8 @@ PRODUCT_COPY_FILES += \
 
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc
+    device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc \
+    device/htc/supersonic/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
 
 
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
