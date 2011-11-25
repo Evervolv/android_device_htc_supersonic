@@ -34,7 +34,8 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown system system /sys/module/serial/parameters/modem_enabled
-    chown system system /dev/ttyHSUSB0
+    chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0770 /dev/ttyHS0
     chown system system /dev/smd9
     chown radio radio /sys/module/msm_flashlight/parameters/phone_status
 
@@ -93,16 +94,19 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
 #   after setting up the capabilities required for WEXT
 #   user wifi
 #   group wifi inet keystore
+    class main
     socket wpa_eth0 dgram 660 wifi wifi
     disabled
     oneshot
 
 
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
     disabled
     oneshot
 
 service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
     disabled
     oneshot
 
@@ -123,6 +127,7 @@ on property:service.modem.enable=0
 
 # compass/accelerometer daemon
 service akmd /system/bin/akmd
+    class main
     user compass
     group compass misc input
 
@@ -189,6 +194,7 @@ service getWMXPropd /system/bin/getWiMAXPropDaemond
 
 service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     --baudrate 3000000 --patchram /etc/firmware/bcm4329.hcd /dev/ttyHS0
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
