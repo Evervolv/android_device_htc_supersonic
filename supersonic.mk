@@ -129,8 +129,7 @@ $(call inherit-product, device/htc/supersonic/media_a1026.mk)
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
 
-$(call inherit-product, build/target/product/full_base.mk)
-
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 PRODUCT_NAME := htc_supersonic
 PRODUCT_DEVICE := supersonic
