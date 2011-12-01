@@ -65,15 +65,15 @@ PRODUCT_PACKAGES += \
     librs_jni \
     sensors.supersonic \
     lights.supersonic \
-    gralloc.qsd8k \
-    copybit.qsd8k \
     gps.supersonic \
     libOmxCore \
     libOmxVidEnc \
-    com.android.future.usb.accessory \
     audio.a2dp.default \
     audio.primary.qsd8k \
-    audio_policy.qsd8k
+    audio_policy.qsd8k \
+    com.android.future.usb.accessory
+#    gralloc.qsd8k \
+#    copybit.qsd8k \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
