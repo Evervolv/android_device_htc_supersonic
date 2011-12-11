@@ -75,6 +75,10 @@ PRODUCT_PACKAGES += \
     gralloc.qsd8k
 #    copybit.qsd8k \
 
+##Disable HWAccel for now
+ADDITIONAL_BUILD_PROPERTIES += \
+    ro.config.disable_hw_accel=true
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/supersonic-keypad.kl:system/usr/keylayout/supersonic-keypad.kl \
