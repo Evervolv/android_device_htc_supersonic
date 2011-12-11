@@ -21,13 +21,13 @@
 
 # The gps config appropriate for this device
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/gps.conf:system/etc/gps.conf
+    device/htc/supersonic/prebuilt/etc/gps.conf:system/etc/gps.conf
 
 
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/init.supersonic.rc:root/init.supersonic.rc \
-    device/htc/supersonic/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
+    device/htc/supersonic/prebuilt/root/init.supersonic.rc:root/init.supersonic.rc \
+    device/htc/supersonic/prebuilt/root/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
 
 
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
@@ -59,7 +59,7 @@ PRODUCT_COPY_FILES += \
 
 # media config xml file
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/media_profiles.xml:system/etc/media_profiles.xml
+    device/htc/supersonic/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -81,10 +81,10 @@ ADDITIONAL_BUILD_PROPERTIES += \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/supersonic-keypad.kl:system/usr/keylayout/supersonic-keypad.kl \
-    device/htc/supersonic/supersonic-keypad.kcm.bin:system/usr/keychars/supersonic-keypad.kcm.bin \
-    device/htc/supersonic/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/supersonic/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc
+    device/htc/supersonic/prebuilt/usr/keylayout/supersonic-keypad.kl:system/usr/keylayout/supersonic-keypad.kl \
+    device/htc/supersonic/prebuilt/usr/keychars/supersonic-keypad.kcm.bin:system/usr/keychars/supersonic-keypad.kcm.bin \
+    device/htc/supersonic/prebuilt/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/supersonic/prebuilt/usr/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc
 
 # Firmware
 PRODUCT_COPY_FILES += \
@@ -94,11 +94,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Supersonic uses high-density artwork where available
-PRODUCT_LOCALES += hdpi
+PRODUCT_LOCALES += en
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/vold.fstab:system/etc/vold.fstab \
-    device/htc/supersonic/apns-conf.xml:system/etc/apns-conf.xml
+    device/htc/supersonic/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
+    device/htc/supersonic/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
@@ -114,12 +114,12 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/prebuilt/libcryp98.so:system/lib/libcryp98.so
+    device/htc/supersonic/prebuilt/lib/libcryp98.so:system/lib/libcryp98.so
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/htc/supersonic/kernel
+    LOCAL_KERNEL := device/htc/supersonic/prebuilt/root/kernel
 else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES += \
@@ -137,3 +137,4 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 PRODUCT_NAME := htc_supersonic
 PRODUCT_DEVICE := supersonic
+PRODUCT_MODEL := Full Android on Supersonic
