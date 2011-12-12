@@ -28,21 +28,8 @@ endif
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.romversion=Evervolv-$(PRODUCT_CODENAME)-$(BUILD_VERSION)
 
-# Extra RIL settings
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.enable.managed.roaming=1 \
-    ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995 \
-    ro.ril.emc.mode=2
-
 PRODUCT_PACKAGES += \
     Camera
-
-#Temp packages -- let's put this into it's own make file in the vendor config.
-PRODUCT_PACKAGES += \
-    bash vim nano libncurses ssh rsync \
-    Stk \
-    e2fsck resize2fs e2fsck \
-    libext2_com_err libext2_profile libext2_blkid libext2_e2p libext2_uuid libext2fs
 
 #Get eng stuff on our userdebug builds
 # Turn on checkjni for non-user builds.
