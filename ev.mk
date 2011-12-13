@@ -20,9 +20,9 @@ PRODUCT_CODENAME := Acies
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your Evo 4G\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
 
 ifeq ($(NIGHTLY_BUILD),true)
-    BUILD_VERSION := 2.0.0p4-$(shell date +%m%d%Y)-NIGHTLY
+    BUILD_VERSION := 2.0.0p5-$(shell date +%m%d%Y)-NIGHTLY
 else
-    BUILD_VERSION := 2.0.0p4
+    BUILD_VERSION := 2.0.0p5
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
