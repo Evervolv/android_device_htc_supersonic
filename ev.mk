@@ -16,7 +16,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_ID=GRI40 PRODUCT_NAME=htc_supersonic BUILD
 
 # Set up the product codename, build version & MOTD.
 PRODUCT_CODENAME := Acies
-PRODUCT_VERSION_DEVICE_SPECIFIC := p5
+PRODUCT_VERSION_DEVICE_SPECIFIC := p2
 
 PRODUCT_MOTD :="\n\n\n--------------------MESSAGE---------------------\nThank you for choosing Evervolv for your Evo 4G\nPlease visit us at \#evervolv on irc.freenode.net\nFollow @preludedrew for the latest Evervolv updates\nGet the latest rom at evervolv.com\n------------------------------------------------\n"
 
