@@ -118,6 +118,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/lib/libcryp98.so:system/lib/libcryp98.so
 
+# Temporary camera blob replacement
+PRODUCT_COPY_FILES += \
+    device/htc/supersonic/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
+    device/htc/supersonic/prebuilt/lib/libcamera.so:system/lib/libcamera.so \
+    device/htc/supersonic/prebuilt/lib/hw/camera.qsd8k.so:system/lib/hw/camera.qsd8k.so
+
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/htc/supersonic/prebuilt/root/kernel
 else
