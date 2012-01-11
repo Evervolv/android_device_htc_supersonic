@@ -27,6 +27,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/root/init.supersonic.rc:root/init.supersonic.rc \
+    device/htc/supersonic/prebuilt/root/init.supersonic.usb.rc:root/init.supersonic.usb.rc \
     device/htc/supersonic/prebuilt/root/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
 
 
@@ -78,6 +79,10 @@ PRODUCT_PACKAGES += \
 ##Disable HWAccel for now
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.config.disable_hw_accel=true
+
+# USB
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    persist.sys.usb.config=mass_storage
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
