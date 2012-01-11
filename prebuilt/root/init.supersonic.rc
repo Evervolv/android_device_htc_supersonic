@@ -1,3 +1,5 @@
+import init.supersonic.usb.rc
+
 on init
     mount rootfs rootfs / remount
     mkdir /app-cache 01777 system system
