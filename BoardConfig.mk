@@ -91,6 +91,8 @@ BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 
 BOARD_HAVE_SQN_WIMAX := true
 
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
+
 # # cat /proc/mtd
 # dev:    size   erasesize  name
 # mtd0: 00c00000 00020000 "wimax"
