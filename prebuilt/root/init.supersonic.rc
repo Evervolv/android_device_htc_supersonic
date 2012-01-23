@@ -1,6 +1,12 @@
 import init.supersonic.usb.rc
 
 on init
+
+    export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt/sdcard 0000 system system
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+
     mount rootfs rootfs / remount
     mkdir /app-cache 01777 system system
     mount tmpfs tmpfs /app-cache size=8m
