@@ -24,6 +24,10 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
+# Additional Camera hacks
+TARGET_LEGACY_CAMERA := true
+TARGET_CAMERA_WRAPPER := qsd8k
+BOARD_HAVE_HTC_FFC := true
 
 # inherit from the proprietary version
 -include vendor/htc/supersonic/BoardConfigVendor.mk
@@ -39,6 +43,7 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_BOOTLOADER_BOARD_NAME := supersonic
+TARGET_SPECIFIC_HEADER_PATH := device/htc/supersonic/include
 
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
@@ -50,8 +55,6 @@ WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/fw_bcm4329.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/fw_bcm4329_apsta.bin"
 WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan firmware_path=/system/vendor/firmware/fw_bcm4329.bin nvram_path=/proc/calibration"
 WIFI_DRIVER_MODULE_NAME          := "bcm4329"
-
-
 
 BOARD_USES_GENERIC_AUDIO := false
 
@@ -66,17 +69,47 @@ BOARD_VENDOR_QCOM_AMSS_VERSION := 3200
 
 BOARD_VENDOR_USE_AKMD := akm8973
 
-BOARD_EGL_CFG := device/htc/supersonic/prebuilt/lib/egl/egl.cfg
-BOARD_USES_OVERLAY := true
-#USE_OPENGL_RENDERER := true
-#BOARD_USES_HGL := true
+# Hardware rendering
+BOARD_EGL_CFG           := device/htc/supersonic/prebuilt/lib/egl/egl.cfg
+USE_OPENGL_RENDERER     := true
+TARGET_USES_GENLOCK     := true
+# Unneccesary with new egl libs
+#COMMON_GLOBAL_CFLAGS   += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_EGL_PIXEL_FORMAT_YV12
+# We only have 2 buffers so still neccesary to hack it.
+COMMON_GLOBAL_CFLAGS    += -DMISSING_GRALLOC_BUFFERS #-DFORCE_EGL_CONFIG=0x9
+# Unneccesary. Just a safety measure to make sure its all included
+COMMON_GLOBAL_CFLAGS    += -DQCOM_HARDWARE
+# Force refresh rate since fps calc is broke and reports 0
+COMMON_GLOBAL_CFLAGS    += -DREFRESH_RATE=60
+# qsd dont have overlay
+TARGET_USE_OVERLAY      := false
+# qsd dont have bypass
+TARGET_HAVE_BYPASS      := false
+# qsd dont support c2d
+TARGET_USES_C2D_COMPOSITION := false
 
-COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_EGL_PIXEL_FORMAT_YV12 -DMISSING_GRALLOC_BUFFERS
+# Try to use ASHMEM if possible (when non-MDP composition is used)
+# if enabled, set debug.sf.hw=1 in system.prop
+# This is still confusing to me disabling for now since pmem and mdp seems to work fine
+#TARGET_GRALLOC_USES_ASHMEM := true
 
+# Find out what these do..if anything
+# used in cafs tree nothing actually present is ours (yet)
+#HAVE_ADRENO200_SOURCE := true
+#HAVE_ADRENO200_SC_SOURCE := true
+#HAVE_ADRENO200_FIRMWARE := true
+#BOARD_USES_QCNE := true
+# I dont think these do anything but everyone else is using them
+#BOARD_USE_QCOM_PMEM := true
+#BOARD_USES_ADRENO_200 := true
+#TARGET_HARDWARE_3D := false
+# Debuging egl
+COMMON_GLOBAL_CFLAGS += -DEGL_TRACE #-DDEBUG_CALC_FPS
 
+TARGET_FORCE_CPU_UPLOAD  := true
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
-BOARD_USES_LEGACY_QCOM := true
+#BOARD_USES_LEGACY_QCOM := true
 
 BOARD_USE_OPENSSL_ENGINE := true
 

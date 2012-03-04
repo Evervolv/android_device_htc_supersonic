@@ -30,9 +30,6 @@ settings.display.brightness=143
 # For emmc phone storage
 ro.phone_storage = 1
 
-# This is a high density device with more memory, so larger vm heaps for it.
-dalvik.vm.heapsize=32m
-
 gsm.sim.operator.numeric = 0
 gsm.sim.operator.alpha = 0
 gsm.sim.operator.iso-country = 0

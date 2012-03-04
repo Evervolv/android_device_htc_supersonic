@@ -23,16 +23,12 @@
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/gps.conf:system/etc/gps.conf
 
-
-
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/root/init.supersonic.rc:root/init.supersonic.rc \
     device/htc/supersonic/prebuilt/root/init.supersonic.usb.rc:root/init.supersonic.usb.rc \
     device/htc/supersonic/prebuilt/root/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
 
-
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
-
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.com.google.clientidbase=android-sprint-us \
@@ -62,29 +58,63 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
-PRODUCT_PACKAGES += \
-    librs_jni \
-    sensors.supersonic \
-    lights.supersonic \
+#
+# Packages needed for Supersonic
+#
+# Sensors
+PRODUCT_PACKAGES := \
+    com.android.future.usb.accessory \
     gps.supersonic \
-    camera.qsd8k \
-    libOmxCore \
-    libOmxVidEnc \
+    lights.supersonic \
+    sensors.supersonic \
+    librs_jni \
+    camera.qsd8k
+
+# Audio
+PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.primary.qsd8k \
-    audio_policy.qsd8k \
-    com.android.future.usb.accessory \
-    gralloc.qsd8k
-#    copybit.qsd8k \
+    audio_policy.qsd8k
 
-##Disable HWAccel for now
-ADDITIONAL_BUILD_PROPERTIES += \
-    ro.config.disable_hw_accel=true
+# GPU
+PRODUCT_PACKAGES += \
+    copybit.qsd8k \
+    gralloc.qsd8k \
+    hwcomposer.default \
+    hwcomposer.qsd8k \
+    libgenlock \
+    libmemalloc \
+    libtilerenderer \
+    libQcomUI
+# Omx
+PRODUCT_PACKAGES += \
+    libOmxCore \
+    libOmxVidEnc \
+    libOmxVdec \
+    libstagefrighthw
+
+# Enable gpu composition 0 => cpu composition, 1 => gpu composition
+# Note: composition.type overrides this so i probably don't even need it.
+PRODUCT_PROPERTY_OVERRIDES += debug.sf.hw=1
+
+# Enable copybit composition
+PRODUCT_PROPERTY_OVERRIDES += debug.composition.type=mdp
+
+# Force 2 buffers - gralloc defaults to 3 and we only have 2
+PRODUCT_PROPERTY_OVERRIDES += debug.gr.numframebuffers=2
+
+# HardwareRenderer properties
+# dirty_regions: "false" to disable partial invalidates, override if enabletr=true
+PRODUCT_PROPERTY_OVERRIDES += \
+    hwui.render_dirty_regions=false \
+    hwui.disable_vsync=true \
+    hwui.print_config=choice \
+    debug.enabletr=false
 
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=mass_storage
-
+    persist.sys.usb.config=mass_storage \
+    persist.service.adb.enable=1
 # Keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/usr/keylayout/supersonic-keypad.kl:system/usr/keylayout/supersonic-keypad.kl \
@@ -99,6 +129,8 @@ PRODUCT_COPY_FILES += \
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+include frameworks/base/build/phone-hdpi-512-dalvik-heap.mk
+
 # High-density art, but English locale
 PRODUCT_LOCALES += en
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -108,18 +140,15 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/htc/supersonic/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
 
+# sysctl
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/modules/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/supersonic/modules/sequans_sdio.ko:system/lib/modules/sequans_sdio.ko \
-    device/htc/supersonic/modules/auth_rpcgss.ko:system/lib/modules/auth_rpcgss.ko \
-    device/htc/supersonic/modules/cifs.ko:system/lib/modules/cifs.ko \
-    device/htc/supersonic/modules/lockd.ko:system/lib/modules/lockd.ko \
-    device/htc/supersonic/modules/nfs.ko:system/lib/modules/nfs.ko \
-    device/htc/supersonic/modules/rpcsec_gss_krb5.ko:system/lib/modules/rpcsec_gss_krb5.ko \
-    device/htc/supersonic/modules/sunrpc.ko:system/lib/modules/sunrpc.ko \
-    device/htc/supersonic/modules/tun.ko:system/lib/modules/tun.ko \
-    device/htc/supersonic/modules/wimaxdbg.ko:system/lib/modules/wimaxdbg.ko \
-    device/htc/supersonic/modules/wimaxuart.ko:system/lib/modules/wimaxuart.ko
+    device/htc/supersonic/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf
+
+# Kernel Modules
+PRODUCT_COPY_FILES += $(shell \
+    find device/htc/supersonic/modules -name '*.ko' \
+    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+    | tr '\n' ' ')
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/lib/libcryp98.so:system/lib/libcryp98.so
