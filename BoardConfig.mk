@@ -57,6 +57,8 @@ WIFI_DRIVER_MODULE_ARG           := "iface_name=wlan firmware_path=/system/vendo
 WIFI_DRIVER_MODULE_NAME          := "bcm4329"
 
 BOARD_USES_GENERIC_AUDIO := false
+# prevent breakage from QCOM_HARDWARE in system/audio.h
+COMMON_GLOBAL_CFLAGS += -DLEGACY_AUDIO_COMPAT
 
 BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x20000000
