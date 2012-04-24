@@ -145,10 +145,12 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf
 
 # Kernel Modules
+ifneq ($(BUILD_KERNEL),true)
 PRODUCT_COPY_FILES += $(shell \
     find device/htc/supersonic/modules -name '*.ko' \
     | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
     | tr '\n' ' ')
+endif
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/lib/libcryp98.so:system/lib/libcryp98.so
@@ -157,15 +159,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/lib/libcamera.so:obj/lib/libcamera.so \
     device/htc/supersonic/prebuilt/lib/libcamera.so:system/lib/libcamera.so
-
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/htc/supersonic/prebuilt/root/kernel
-else
-    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
 
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
 
