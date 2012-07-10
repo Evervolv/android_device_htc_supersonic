@@ -15,8 +15,8 @@
  */
 
 
-// #define LOG_NDEBUG 0
-#define LOG_TAG "lights"
+// #define ALOG_NDEBUG 0
+#define ALOG_TAG "lights"
 
 #include <cutils/log.h>
 
@@ -89,7 +89,7 @@ write_int(char const* path, int value)
         return amt == -1 ? -errno : 0;
     } else {
         if (already_warned == 0) {
-            LOGE("write_int failed to open %s\n", path);
+            ALOGE("write_int failed to open %s\n", path);
             already_warned = 1;
         }
         return -errno;
@@ -166,7 +166,7 @@ set_wimax_light_locked(struct light_device_t* dev,
     green = (colorRGB >> 8) & 0xFF;
     blue  = colorRGB & 0xFF;
 
-    LOGD("set_wimax_light_locked colorRGB=%08X, green=%d, amber=%d blue=%d flashMode=%d\n",
+    ALOGD("set_wimax_light_locked colorRGB=%08X, green=%d, amber=%d blue=%d flashMode=%d\n",
             colorRGB, green, amber, blue, state->flashMode);
 
     if ((green || blue) && blink) {
@@ -215,7 +215,7 @@ set_speaker_light_locked(struct light_device_t* dev,
 
     colorRGB = state->color;
 
-    LOGD("set_speaker_light_locked colorRGB=%08X, onMS=%d, offMS=%d\n",
+    ALOGD("set_speaker_light_locked colorRGB=%08X, onMS=%d, offMS=%d\n",
             colorRGB, onMS, offMS);
 
     red = (colorRGB >> 16) & 0xFF;
