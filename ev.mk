@@ -24,8 +24,8 @@ PRODUCT_PACKAGES += \
     Camera
 
 # Hot reboot
-#PRODUCT_PACKAGE_OVERLAYS += \
-#    vendor/ev/overlay/hot_reboot
+PRODUCT_PACKAGE_OVERLAYS += \
+    vendor/ev/overlay/hot_reboot
 
 # Copy compatible prebuilt files
 PRODUCT_COPY_FILES +=  \
