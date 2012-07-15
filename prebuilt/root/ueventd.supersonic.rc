@@ -6,3 +6,6 @@ mtd@misc                0460    radio   diag
 
 # gpu driver for adreno200 is globally accessible
 /dev/kgsl-3d0           0666    system  graphics
+
+# wifi
+/dev/rfkill             0660    root        wifi
