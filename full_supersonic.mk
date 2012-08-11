@@ -56,7 +56,6 @@ PRODUCT_PACKAGES := \
     gps.supersonic \
     lights.supersonic \
     sensors.supersonic \
-#    camera.qsd8k
 
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
