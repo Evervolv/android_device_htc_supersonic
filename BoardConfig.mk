@@ -74,4 +74,3 @@ BOARD_HAS_NO_SELECT_BUTTON := 1
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_supersonic librecovery_ui_htc
 
 TARGET_KERNEL_CONFIG    := evervolv_supersonic_defconfig
-TARGET_PREBUILT_KERNEL  := device/htc/supersonic/prebuilt/root/kernel
