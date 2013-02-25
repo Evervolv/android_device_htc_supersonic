@@ -26,6 +26,9 @@ on init
     setprop ro.CONTENT_PROVIDER_MEM 7680
     setprop ro.EMPTY_APP_MEM 8192
 
+on fs
+    mount_all /fstab.supersonic
+
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
