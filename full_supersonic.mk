@@ -26,7 +26,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/root/init.supersonic.rc:root/init.supersonic.rc \
     device/htc/supersonic/prebuilt/root/init.supersonic.usb.rc:root/init.supersonic.usb.rc \
-    device/htc/supersonic/prebuilt/root/ueventd.supersonic.rc:root/ueventd.supersonic.rc 
+    device/htc/supersonic/prebuilt/root/ueventd.supersonic.rc:root/ueventd.supersonic.rc \
+    device/htc/supersonic/prebuilt/root/fstab.supersonic:root/fstab.supersonic
 
 $(call inherit-product-if-exists, vendor/htc/supersonic/supersonic-vendor.mk)
 
@@ -70,7 +71,6 @@ PRODUCT_COPY_FILES += \
     device/htc/supersonic/firmware/bcm4329.hcd:system/etc/firmware/bcm4329.hcd
 
 PRODUCT_COPY_FILES += \
-    device/htc/supersonic/prebuilt/etc/vold.fstab:system/etc/vold.fstab \
     device/htc/supersonic/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 # sysctl

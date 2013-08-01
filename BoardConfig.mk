@@ -59,6 +59,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 TARGET_KERNEL_CONFIG    := evervolv_supersonic_defconfig
 
+TARGET_RECOVERY_FSTAB := device/htc/supersonic/prebuilt/root/fstab.supersonic
+
 # Defunct
 #BOARD_HAS_NO_SELECT_BUTTON := 1
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_supersonic librecovery_ui_htc

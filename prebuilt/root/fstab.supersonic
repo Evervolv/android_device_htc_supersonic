@@ -1,0 +1,12 @@
+# nothing here is intented for mounting by init
+
+# vold mounts sdcard
+/devices/platform/msm_sdcc.2/mmc_host/mmc2 /storage/sdcard0 vfat defaults voldmanaged=sdcard:1
+
+# for recovery and ota installer script, MTD requires labels
+misc /misc mtd defaults defaults
+recovery /recovery mtd defaults defaults
+boot /boot mtd defaults defaults
+system /system yaffs2 ro wait
+cache /cache yaffs2 defaults defaults
+userdata /data yaffs2 defaults defaults
