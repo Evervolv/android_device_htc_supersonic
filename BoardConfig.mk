@@ -24,10 +24,6 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 USE_CAMERA_STUB := true
-# Additional Camera hacks
-TARGET_LEGACY_CAMERA := true
-TARGET_CAMERA_WRAPPER := qsd8k
-BOARD_HAVE_HTC_FFC := true
 
 # inherit from the proprietary version
 -include vendor/htc/supersonic/BoardConfigVendor.mk
@@ -40,15 +36,8 @@ BOARD_KERNEL_CMDLINE := no_console_suspend=1
 BOARD_KERNEL_BASE := 0x20000000
 BOARD_KERNEL_NEW_PPPOX := true
 
-BOARD_USE_OPENSSL_ENGINE := true
-
-BOARD_USE_FROYO_LIBCAMERA := true
-BOARD_USE_REVERSE_FFC := true
-
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := supersonic
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 1240
-
-BOARD_HAVE_SQN_WIMAX := true
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun0/file
 
@@ -65,13 +54,12 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00280000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x15e00000   # limited so we enforce room to grow
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x1aba0000
-
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# Force use of power button in recovery for Supersonic
-BOARD_HAS_NO_SELECT_BUTTON := 1
-
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_supersonic librecovery_ui_htc
 
 TARGET_KERNEL_CONFIG    := evervolv_supersonic_defconfig
-TARGET_PREBUILT_KERNEL  := device/htc/supersonic/prebuilt/root/kernel
+
+# Defunct
+#BOARD_HAS_NO_SELECT_BUTTON := 1
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_supersonic librecovery_ui_htc
+#BOARD_HAVE_SQN_WIMAX := true

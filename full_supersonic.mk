@@ -48,9 +48,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
 
-#
-# Packages needed for Supersonic
-#
 # Sensors
 PRODUCT_PACKAGES := \
     gps.supersonic \
@@ -59,8 +56,7 @@ PRODUCT_PACKAGES := \
 
 # USB
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=mass_storage \
-    persist.service.adb.enable=1
+    persist.sys.usb.config=mass_storage
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -80,14 +76,6 @@ PRODUCT_COPY_FILES += \
 # sysctl
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/etc/sysctl.conf:system/etc/sysctl.conf
-
-# Kernel Modules
-ifeq (,$(BUILD_KERNEL))
-PRODUCT_COPY_FILES += $(shell \
-    find device/htc/supersonic/modules -name '*.ko' \
-    | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-    | tr '\n' ' ')
-endif
 
 PRODUCT_COPY_FILES += \
     device/htc/supersonic/prebuilt/lib/libcryp98.so:system/lib/libcryp98.so
