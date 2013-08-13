@@ -39,6 +39,8 @@ on boot
     mkdir /data/wimax/ 0777  wimax wimax
     mkdir /data/wimax/log 0777  wimax wimax
 
+    chmod 0644 /proc/cmdline
+
     # bluetooth power up/down interface
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
