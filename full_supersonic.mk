@@ -38,7 +38,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.cdma.home.operator.alpha=Sprint \
 	ro.setupwizard.enable_bypass=1 \
 	ro.media.dec.jpeg.memcap=20000000 \
-	ro.opengles.version=131072
+	ro.opengles.version=131072 \
+    ro.telephony.ril.v3=skipdatareg
 
 DEVICE_PACKAGE_OVERLAYS += device/htc/supersonic/overlay
 
