@@ -2,9 +2,11 @@ import init.supersonic.usb.rc
 
 on init
 
+    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
+    mkdir /storage/sdcard0 0700 root root
+
     export EXTERNAL_STORAGE /storage/sdcard0
-    mkdir /storage 0050 system sdcard_r
-    mkdir /storage/sdcard0 0000 system system
+
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
@@ -25,6 +27,14 @@ on init
     setprop ro.HIDDEN_APP_MEM 7168
     setprop ro.CONTENT_PROVIDER_MEM 7680
     setprop ro.EMPTY_APP_MEM 8192
+
+on fs
+    # mount mtd partitions
+    # Mount /system rw first to give the filesystem a chance to save a checkpoint
+    mount yaffs2 mtd@system /system
+    mount yaffs2 mtd@system /system ro remount
+    mount yaffs2 mtd@userdata /data nosuid nodev
+    mount yaffs2 mtd@cache /cache nosuid nodev
 
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -105,8 +115,15 @@ on boot
     symlink /system/vendor/firmware/fw_bcmdhd.bin /vendor/firmware/fw_bcmdhd.bin
     symlink /system/vendor/firmware/fw_bcmdhd_apsta.bin /vendor/firmware/fw_bcmdhd_apsta.bin
 
+    #sdcard daemon
+    service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+        class late_start
+        disabled
+
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
-    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin
+    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf \
+    -O/data/misc/wifi/sockets -e/data/misc/wifi/entropy.bin \
+    -g@android:wpa_wlan0
 #   we will start as root and wpa_supplicant will switch to user wifi
 #   after setting up the capabilities required for WEXT
 #   user wifi
@@ -117,7 +134,7 @@ service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
     oneshot
 
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -aABKL
+service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
 	class main
 	disabled
 	oneshot

@@ -1,7 +1,7 @@
 # nothing here is intented for mounting by init
 
 # vold mounts sdcard
-/devices/platform/msm_sdcc.2/mmc_host/mmc2 /storage/sdcard0 vfat defaults voldmanaged=sdcard:1
+/devices/platform/msm_sdcc.2/mmc_host/mmc2 auto vfat defaults voldmanaged=sdcard0:1,noemulatedsd
 
 # for recovery and ota installer script, MTD requires labels
 misc /misc mtd defaults defaults
